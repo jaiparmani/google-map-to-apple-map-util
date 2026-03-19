@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from urllib.parse import urlparse, parse_qs, unquote, quote
 import re
+from fastapi.responses import RedirectResponse
 import requests
 
 app = FastAPI()
@@ -105,6 +106,8 @@ def convert(google_url: str):
     # Step 4: build Apple Maps link
     apple_url = build_apple_maps_url(place, lat, lng)
     print(f"Converted Google Maps URL: {google_url} to Apple Maps URL: {apple_url}")
+    # return redirect 
+    return RedirectResponse(apple_url)
     return {
         "input_url": google_url,
         "expanded_url": expanded_url,
